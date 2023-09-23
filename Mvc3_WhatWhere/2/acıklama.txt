@@ -1,0 +1,15 @@
+1 in devamı mig yapılacak tek tek tablolar ilişki yok verileri guncel
+dbcontext den veriler alınacak
+
+paketleri yükle
+
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+dbcontext i olustur
+
+sonrada mig yap update yap
+
+dotnet ef migrations add DataDb
+dotnet ef database update
