@@ -1,0 +1,5 @@
+baseentity context config dbcontext mig update yapıldı
+tablo yapısı kuruldu
+1 bossun 1 den fazla dukkanı olabilir
+1 shop un 1 boss u ve 1 categorisi olabilir
+config klasörü olusturuldu context duzeltildi
