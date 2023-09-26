@@ -1,0 +1,7 @@
+katmanlı mimariye geçiş sadece klasör yapısı olusturuldu paketler yuklendi 
+
+sadece klasör yapısı var tekrar mig up alacaksan eger mvc den yapman lazım
+
+dotnet ef migrations add DataDb
+
+dotnet ef database update
