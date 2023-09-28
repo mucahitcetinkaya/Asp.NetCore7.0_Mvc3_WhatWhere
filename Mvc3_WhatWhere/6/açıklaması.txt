@@ -1,0 +1,19 @@
+katmanlı mimariye geçiş sınıf yerleri değiştirilecek
+klasör yapısına göre
+
+program cs de data tanıtma kısmında değişiklik yaptık
+
+
+viewımports a entity klasörünü tanıttık ekledik
+gerekli using leri ekledik
+referansları verdik
+mvc e business
+business e core data
+dataya entity
+
+mvc e design
+dataya design ve slqlite i yukledik
+
+dotnet ef migrations add DataDb --startup-project ../WhatWhere.Mvc
+
+dotnet ef database update --startup-project ../WhatWhere.Mvc
