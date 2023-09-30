@@ -1,0 +1,3 @@
+city kısmı eklendi mig up alındı
+
+her sehirde birden fazla dukkan olabilir her dukkanın bir sehiri olabilir

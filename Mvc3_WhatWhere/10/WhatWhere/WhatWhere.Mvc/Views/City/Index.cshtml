@@ -1,0 +1,23 @@
+﻿@model List<City>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Seçiniz</th>
+            
+        </tr>
+    </thead>
+
+    @foreach (var city in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@city.Sehir</td>
+                <td><a href="#" class="btn btn-primary">Seç</a></td>
+               
+            </tr>
+        </tbody>
+    }
+</table>
