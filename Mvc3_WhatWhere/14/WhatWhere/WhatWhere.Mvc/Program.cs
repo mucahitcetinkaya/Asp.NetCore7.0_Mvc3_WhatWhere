@@ -1,0 +1,44 @@
+using Microsoft.EntityFrameworkCore;
+using WhatWhere.Business.Abstract;
+using WhatWhere.Business.Concrete;
+using WhatWhere.Data.Abstract;
+using WhatWhere.Data.Concrete.EfCore.Context;
+using WhatWhere.Data.Concrete.EfCore.Repositories;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<WhatWhereContext>(options =>
+{
+    options.UseSqlite(builder.Configuration.GetConnectionString("sqlconnection"),
+        b => b.MigrationsAssembly("WhatWhere.Data"));
+});
+
+builder.Services.AddScoped<IBossService, BossManager>();
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+builder.Services.AddScoped<IShopService, ShopManager>();
+builder.Services.AddScoped<ICityService, CityManager>();
+builder.Services.AddScoped<ITownService, TownManager>();
+
+builder.Services.AddScoped<IBossRepository, EfCoreBossRepository>();
+builder.Services.AddScoped<ICategoryRepository, EfCoreCategoryRepository>();
+builder.Services.AddScoped<IShopRepository, EfCoreShopRepository>();
+builder.Services.AddScoped<ICityRepository, EfCoreCityRepository>();
+builder.Services.AddScoped<ITownRepository, EfCoreTownRepository>();
+
+
+var app = builder.Build();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Chose}/{action=ChoseCity}/{id?}");
+
+app.Run();

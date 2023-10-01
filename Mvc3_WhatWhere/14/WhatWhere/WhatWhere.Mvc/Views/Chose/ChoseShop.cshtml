@@ -1,0 +1,16 @@
+﻿@model ShopViewModel
+
+<form asp-action="ChoseTown" method="post">
+    <input name="townId" value="" hidden />
+    <div class="mb-3">
+        <label class="form-label">İlçe Seçin</label>
+        <select class="form-select" aria-label="Default select example" name="townId">
+            <option selected>Dükkanlar</option>
+            @foreach (var shop in Model.Shops)
+            {
+                <option value="@shop.Id">@shop.</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-danger" type="submit" asp-controller="Shop" asp-action="Index">İlçe Seçtim</button>
+</form>

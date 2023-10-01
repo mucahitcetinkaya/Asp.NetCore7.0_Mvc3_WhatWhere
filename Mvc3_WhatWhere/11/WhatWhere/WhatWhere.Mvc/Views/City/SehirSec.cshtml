@@ -1,0 +1,62 @@
+﻿@{
+    int GelenIlPlaka = Convert.ToInt32(ViewBag.secilenSehir);
+}
+
+
+
+<hr>
+
+
+<form action="/Home/Sehir/" method="post">
+    <input value="@ViewBag.secilenSehir" hidden />
+    <div class="mb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="exampleFormControlInput1" class="form-label">İlçe Seçin</label>
+                    <input type="text" class="form-control" value="@ViewBag.secilenSehir" readonly>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+        <hr />
+        <label for="exampleFormControlInput1" class="form-label">İlçe Seçin</label>
+        @if (GelenIlPlaka == 81)
+        {
+            <select class="form-select" aria-label="Default select example" name="secilenIlce">
+                <option selected>İlçeler</option>
+                <option value="Yığılca">Yığılca</option>
+                <option value="Akçakoca">Akçakoca</option>
+            </select>
+        }
+    </div>
+    <button class="btn btn-danger" type="submit"> Şehir Seçtim </button>
+</form>
+<hr>
+
+
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Plaka</th>
+            <th scope="col">Name</th>
+            <th scope="col">Seçiniz</th>
+
+        </tr>
+    </thead>
+
+    @foreach (var city in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@city.Id</td>
+                <td>@city.Sehir</td>
+                <td><a asp-controller="City" asp-action="Index" class="btn btn-primary">Seç</a></td>
+
+            </tr>
+        </tbody>
+    }
+</table>
+
+*@

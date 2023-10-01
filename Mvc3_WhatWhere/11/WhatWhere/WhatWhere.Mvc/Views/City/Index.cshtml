@@ -1,0 +1,44 @@
+﻿@*@{
+    ViewData["Title"] = "Home Page";
+}
+
+<hr>
+
+
+<form action="/Home/Sehir/" method="post">
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Şehir Seçin</label>
+        <select class="form-select" aria-label="Default select example" name="secilenSehir">
+            <option selected>Şehirler</option>
+          @foreach (var city in Model)
+            {
+                <option value="@city.Id">Düzce</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-danger" type="submit"> Şehir Seçtim </button>
+</form>
+<hr>
+
+*@
+
+@model List<City>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+        </tr>
+    </thead>
+
+    @foreach (var city in Model)
+    {
+        <tbody>
+            <tr>
+                <th>@city.Id</th>
+                <td>@city.Sehir</td>
+            </tr>
+        </tbody>
+    }
+</table>

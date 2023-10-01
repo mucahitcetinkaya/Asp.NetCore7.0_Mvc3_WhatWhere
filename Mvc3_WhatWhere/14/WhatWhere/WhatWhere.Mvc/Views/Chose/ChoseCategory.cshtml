@@ -1,0 +1,36 @@
+﻿@*@model CategoryViewModel
+
+<form asp-action="ChoseShop" method="post">
+    <input name="cityId" value="@Model.Id" hidden />
+    <div class="mb-3">
+        <label class="form-label">Kategori Seçin</label>
+        <select class="form-select" aria-label="Default select example" name="categoryId">
+            <option selected>Kategoriler</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-danger" type="submit" asp-controller="Category" asp-action="Index">Kategori Seçtim</button>
+</form>
+*@
+
+<!-- ChoseCategory.cshtml -->
+@model CategoryViewModel
+
+<form asp-action="ShowResults" method="post">
+    <input name="cityId" value="@Model.CityId" hidden />
+    <input name="townId" value="@Model.TownId" hidden />
+    <div class="mb-3">
+        <label for="categoryId" class="form-label">Kategori Seçin</label>
+        <select class="form-select" aria-label="Default select example" name="categoryId">
+            <option selected>Kategoriler</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-danger" type="submit">Kategori Seçtim</button>
+</form>

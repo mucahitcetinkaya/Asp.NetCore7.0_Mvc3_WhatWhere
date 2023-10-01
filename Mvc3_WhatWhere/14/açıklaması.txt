@@ -1,0 +1,13 @@
+katmanlı mimaride business data entity e kendi klasörleri eklendi
+
+Interface ve manager ler eklendi
+IService ve manager
+IRepository ve efcorerepository
+
+categorycontroller de degişiklik yapıldı context ten veri alıyordu onu manager uzerınden almasını sagladık
+
+program.cs e servisleri ekledik ioc e 
+
+metotları olusturduk iç kodlarını yazdık
+
+categorycontrollar da gettall ile butun kategorileri listelettik

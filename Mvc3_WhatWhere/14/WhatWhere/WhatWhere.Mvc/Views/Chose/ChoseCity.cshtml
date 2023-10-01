@@ -1,0 +1,34 @@
+﻿@*@model CityViewModel
+
+<form asp-action="ChoseTown" method="post">
+    <input name="cityId" value="@Model.Id" hidden />
+    <div class="mb-3">
+        <label for="cityId" class="form-label">Şehir Seçin</label>
+        <select class="form-select" aria-label="Default select example" name="cityId">
+            <option selected>Şehirler</option>
+            @foreach (var city in Model.Cities)
+            {
+                <option value="@city.Id">@city.Sehir</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-danger" type="submit" asp-controller="City" asp-action="Index">Şehir Seçtim</button>
+</form>
+*@
+
+<!-- ChoseCity.cshtml -->
+@model CityViewModel
+
+<form asp-action="ChoseTown" method="post">
+    <div class="mb-3">
+        <label for="cityId" class="form-label">Şehir Seçin</label>
+        <select class="form-select" aria-label="Default select example" name="cityId">
+            <option selected>Şehirler</option>
+            @foreach (var city in Model.Cities)
+            {
+                <option value="@city.Id">@city.Sehir</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-danger" type="submit">Şehir Seçtim</button>
+</form>
