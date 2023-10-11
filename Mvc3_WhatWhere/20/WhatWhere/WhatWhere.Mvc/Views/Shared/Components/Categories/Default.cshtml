@@ -1,0 +1,18 @@
+﻿@model CategoryListViewModel
+<div class="list-group">
+    <a class="list-group-item list-group-item-action @(Model.SelectedCategoryName=="" ? "active" : "")"
+       asp-area=""
+       asp-controller="Shop"
+       asp-action="ShopList"
+       asp-route-categoryurl=""
+       asp-route-authorurl="">Tüm Kategoriler</a>
+    @foreach (var categoryViewModel in Model.CategoryViewModelList)
+    {
+        <a class="list-group-item list-group-item-action @(Model.SelectedCategoryName==categoryViewModel.Name ? "active" : "")"
+           asp-area=""
+           asp-controller="Shop"
+           asp-action="ShopList"
+           asp-route-categoryurl="@categoryViewModel.Name"
+           asp-route-authorurl="">@categoryViewModel.Name</a>
+    }
+</div>

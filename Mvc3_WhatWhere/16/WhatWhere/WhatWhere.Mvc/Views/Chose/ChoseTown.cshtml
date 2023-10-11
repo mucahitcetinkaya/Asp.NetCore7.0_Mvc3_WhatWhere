@@ -1,0 +1,39 @@
+﻿<!-- ChoseTown.cshtml -->
+@*@model TownViewModel
+
+<form asp-action="ChoseCategory" method="post">
+    <div class="mb-3">
+        <label for="townId" class="form-label">İlçe Seçin</label>
+        <select class="form-select" aria-label="Default select example" name="townId">
+            <option selected>İlçeler</option>
+            @foreach (var town in Model.Towns)
+            {
+                <option value="@town.Id">@town.Ilce</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-danger" type="submit">İlçe Seçtim</button>
+</form>*@
+
+@model List<Town>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ilcesi</th>
+            <th scope="col">Sehir</th>
+        </tr>
+    </thead>
+
+    @foreach (var town in Model)
+    {
+        <tbody>
+            <tr>
+                <th>@town.Id</th>
+                <td>@town.Ilce</td>
+                <td>@town.CityId</td>
+            </tr>
+        </tbody>
+    }
+</table>
