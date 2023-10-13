@@ -1,0 +1,5 @@
+root klasörü düzenlendi
+
+optionscontroller yapıldı secince gelmiyor ama
+
+yeni metotlar yazıldı options da secince hala digeri gelmiyor 

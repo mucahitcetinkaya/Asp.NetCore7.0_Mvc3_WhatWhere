@@ -1,0 +1,231 @@
+﻿@model List<Town>
+
+<select class="form-select" id="townsSelect">
+    <option selected>İlçeler</option>
+    @foreach (var town in Model)
+    {
+        <option value="@town.Id">@town.Ilce</option>
+    }
+</select>
+
+
+
+
+@*
+
+
+namespace WhatWhere.Mvc.Controllers
+{
+    public class OptionsController : Controller
+    {
+        private readonly ICityService _cityManager;
+        private readonly ITownService _townManager;
+        private readonly ICategoryService _categoryManager;
+        private readonly IShopService _shopManager;
+
+        public OptionsController(ICityService cityManager, ITownService townManager, ICategoryService categoryManager, IShopService shopManager)
+        {
+            _cityManager = cityManager;
+            _townManager = townManager;
+            _categoryManager = categoryManager;
+            _shopManager = shopManager;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var viewModel = new OptionsViewModel
+            {
+                Cities = await _cityManager.GetAllAsync(),
+                Towns = await _townManager.GetTownFullDataAsync(),
+                Categories = await _categoryManager.GetAllAsync(),
+                Shops = await _shopManager.GetShopFullDataAsync()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTownsByCityId(int cityId)
+        {
+            var towns = await _townManager.GetTownsByCityIdAsync(cityId);
+            return PartialView("OptionsTown", towns);
+        }
+}
+
+public async Task<List<Town>> GetTownsByCityIdAsync(int cityId)
+        {
+            return await _context.Towns
+                .Where(t => t.CityId == cityId)
+                .ToListAsync();
+        }
+
+public async Task<List<City>> GetAllAsync()
+        {
+            return await _cityRepository.GetAllAsync();
+        }
+
+public async Task<List<Category>> GetAllAsync()
+        {
+           return await _categoryRepository.GetAllAsync();
+        }
+
+public async Task<List<Town>> GetTownFullDataAsync()
+        {
+            return await _context.Towns.Include(t => t.City).ToListAsync();
+        }
+
+public async Task<List<Shop>> GetShopFullDataAsync()
+        {
+            var result = await _context
+                .Shops
+                .Include(s => s.Boss)
+                .Include(s => s.Category)
+                .Include(s => s.City)
+                .Include(s => s.Town)
+                .ToListAsync();
+            return result;
+        }
+
+OptionsController OptionsTown.cshtml
+@model List<Town>
+
+<select class="form-select" id="townsSelect">
+    <option selected>İlçeler</option>
+    @foreach (var town in Model)
+    {
+        <option value="@town.Id">@town.Ilce</option>
+    }
+</select>
+
+OptionsController OptionsShop.cshtml
+
+@model List<Shop>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Sehir</th>
+            <th scope="col">Ilce</th>
+            <th scope="col">PhoneNumber</th>
+            <th scope="col">MailAdress</th>
+            <th scope="col">Site</th>
+
+
+        </tr>
+    </thead>
+
+    @foreach (var shop in Model)
+    {
+        <tbody>
+            <tr>
+                <th>@shop.Id</th>
+                <td>@shop.Name</td>
+                <td>@shop.Address</td>
+                <td>@shop.City.Sehir</td>
+                <td>@shop.Town.Ilce</td>
+                <td>@shop.PhoneNumber</td>
+                <td>@shop.MailAdress</td>
+                <td>@shop.Url</td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+OptionsController OptionsCity.cshtml
+
+@model List<City>
+
+<select class="form-select" id="citiesSelect">
+    <option selected>Şehirler</option>
+    @foreach (var city in Model)
+    {
+        <option value="@city.Id">@city.Sehir</option>
+    }
+</select>
+
+OptionsController OptionsCategory.cshtml
+
+@model List<Category>
+
+<select class="form-select" id="categoriesSelect">
+    <option selected>Kategoriler</option>
+    @foreach (var category in Model)
+    {
+        <option value="@category.Id">@category.Name</option>
+    }
+</select>
+
+OptionsController Index.cshtml
+
+@model OptionsViewModel
+
+<div class="container text-center">
+    <div class="row">
+
+
+        <div class="col">
+            <select class="form-select" aria-label="Default select example" id="citiesSelect">
+                <option selected>Şehirler</option>
+                @foreach (var city in Model.Cities)
+                {
+                    <option value="@city.Id">@city.Sehir</option>
+                }
+            </select>
+        </div>
+
+        <div class="col" id="townsContainer">
+            @await Html.PartialAsync("OptionsTown", Model.Towns)
+        </div>
+
+
+        <div class="col" id="categoriesContainer">
+            @await Html.PartialAsync("OptionsCategory", Model.Categories)
+        </div>
+
+
+
+    </div>
+
+    <div class="row">
+        <div class="col" id="shopsContainer">
+            @await Html.PartialAsync("OptionsShop", Model.Shops)
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#citiesSelect').change(function () {
+            selectCity();
+        });
+    });
+
+    function selectCity() {
+        var cityId = document.getElementById("citiesSelect").value;
+        $.ajax({
+            url: '@Url.Action("GetTownsByCityId", "Options")',
+            type: 'GET',
+            data: { cityId: cityId },
+            success: function (data) {
+                $('#townsContainer').html(data);
+            },
+            error: function () {
+                alert("Hata oluştu, lütfen tekrar deneyin.");
+            }
+        });
+    }
+</script>
+
+OptionsController GetTownsById.cshtml
+
+boş
+
+
+
+
+
+
+*@

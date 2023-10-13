@@ -1,0 +1,3 @@
+areas
+admine geçildi 
+shop ve category admin index create tarafı yapıldı 

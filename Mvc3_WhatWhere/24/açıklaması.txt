@@ -1,0 +1,3 @@
+root klasörü düzenlendi
+
+optionscontroller yapıldı secince gelmiyor ama

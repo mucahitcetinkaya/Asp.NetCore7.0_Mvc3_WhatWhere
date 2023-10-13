@@ -1,0 +1,9 @@
+﻿@model List<Town>
+
+<select class="form-select" id="townsSelect">
+    <option selected>İlçeler</option>
+    @foreach (var town in Model)
+    {
+        <option value="@town.Id">@town.Ilce</option>
+    }
+</select>

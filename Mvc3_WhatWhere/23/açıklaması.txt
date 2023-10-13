@@ -1,0 +1,8 @@
+areas
+admine geçildi 
+shop ve category admin index create tarafı yapıldı 
+
+chose olanı options yaptım viewlerini de duzenledim
+gereksiz dosyları kaldırdım
+
+şimdi tüm kategorileri options olarak gostermek istiyorum onların ayarlarına gecicem

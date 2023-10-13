@@ -1,0 +1,17 @@
+﻿@model List<ShopViewModel>
+
+<div class="row">
+    <div class="col-2">
+        @await Component.InvokeAsync("Categories")
+    </div>
+    <div class="col-10">
+        <div class="row g-3">
+            @foreach (var shopViewModel in Model)
+            {
+                <div class="col-2">
+                    @await Html.PartialAsync("_ShopPartial", shopViewModel)
+                </div>
+            }
+        </div>
+    </div>
+</div>

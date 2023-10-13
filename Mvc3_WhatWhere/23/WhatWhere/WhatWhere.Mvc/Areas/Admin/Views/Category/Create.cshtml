@@ -1,0 +1,51 @@
+﻿@model CategoryAddViewModel
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-lg border-0 rounded-lg mt-3">
+            <div class="card-header"><h3 class="font-weight-light mb-2">Kategori Ekle</h3></div>
+            <div class="card-body">
+                <form asp-area="Admin"
+                      asp-controller="Category"
+                      asp-action="Create"
+                      method="post">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <div class="form-floating mb-2 mb-md-0">
+                                <input asp-for="Name" class="form-control" type="text" placeholder="Kategori adını giriniz.." />
+                                <label for="inputFirstName">Kategori Adı</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-floating">
+                                <input class="form-control" asp-for="Description" type="text" placeholder="Açıklamayı giriniz..." />
+                                <label for="inputLastName">Açıklama</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Description"></span>
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" asp-for="IsActive" type="checkbox">
+                        <label class="form-check-label" for="IsActive">
+                            Aktif mi?
+                        </label>
+                    </div>
+                    <div class="mt-4 mb-0">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-block">Oluştur</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center py-3">
+                <div class="small">
+                    <a asp-area="Admin"
+                       asp-controller="Category"
+                       asp-action="Index">
+                        Tüm Kategorileri Listele
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+sec kısmıda tamam
+yeni bir generic metot ekledik
+categoriler shoplar geliyor hangi kategoriye basarsan oda geliyor
+viewcomponent i yaptık 
+viewcomponentde ShopDenemeA da resimler gelmiyor ShopDenemeB de resimler geliyor
+ShopDenemeA da bütün hepsi geliyor
+ShopDenemeB de sadece aktif olan dükkanlar geliyor
+deneme kısmı duzenlendi 
+shop için yeni metotlar yazıldı efcoreshoprepository

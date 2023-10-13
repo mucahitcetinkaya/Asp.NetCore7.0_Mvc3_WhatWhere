@@ -1,0 +1,25 @@
+@model List<TownViewModel>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Adı</th>
+            <th scope="col">Sehir Plaka</th>
+            <th scope="col">Sehir Adı</th>
+        </tr>
+    </thead>
+
+    @foreach (var town in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@town.Id</td>
+                <td>@town.Ilce</td>
+                <td>@town.CityId</td>
+                <td>@town.City.Sehir</td>
+            </tr>
+        </tbody>
+    }
+</table>

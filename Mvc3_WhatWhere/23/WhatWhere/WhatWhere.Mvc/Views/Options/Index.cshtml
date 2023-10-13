@@ -1,0 +1,39 @@
+﻿@model OptionsViewModel
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <p>Şehirler</p>
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Şehirler</option>
+                @foreach (var city in Model.Cities)
+                {
+                    <option value="@city.Id">@city.Sehir</option>
+                }
+            </select>
+            <button class="btn btn-danger" type="submit">Şehir Seçtim</button>
+        </div>
+        <div class="col">
+            <p>İlçeler</p>
+            <select class="form-select" aria-label="Default select example">
+                <option selected>İlçeler</option>
+                @foreach (var town in Model.Towns)
+                {
+                    <option value="@town.Id">@town.Ilce</option>
+                }
+            </select>
+            <button class="btn btn-danger" type="submit">İlçe Seçtim</button>
+        </div>
+        <div class="col">
+            <p>Kategoriler</p>
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Kategoriler</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+            <button class="btn btn-danger" type="submit">Kategori Seçtim</button>
+        </div>
+    </div>
+</div>

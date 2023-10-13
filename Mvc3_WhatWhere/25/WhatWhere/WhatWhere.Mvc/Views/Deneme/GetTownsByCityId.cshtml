@@ -1,0 +1,28 @@
+@model List<Town>
+
+<h2>@Model.FirstOrDefault()?.City.Sehir - İlçeler</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">İlçe Adı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var town in Model)
+            {
+                <tr>
+                    <td>@town.Id</td>
+                    <td>@town.Ilce</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Seçilen şehre ait ilçe bulunamadı.</p>
+}
