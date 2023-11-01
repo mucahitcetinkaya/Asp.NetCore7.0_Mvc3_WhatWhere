@@ -1,0 +1,54 @@
+﻿@model RegisterViewModel
+<body class="bg-light d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Kayıt ol</h2>
+                    </div>
+                    <div class="card-body">
+                        <form asp-area="" asp-controller="Account" asp-action="Register" method="post">
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="FirstName"></label>
+                                <input class="form-control" asp-for="FirstName" />
+                                <span class="text-danger" asp-validation-for="FirstName"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="LastName"></label>
+                                <input class="form-control" asp-for="LastName" />
+                                <span class="text-danger" asp-validation-for="LastName"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="UserName"></label>
+                                <input class="form-control" asp-for="UserName" />
+                                <span class="text-danger" asp-validation-for="UserName"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="Email"></label>
+                                <input class="form-control" asp-for="Email" />
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="Password"></label>
+                                <input class="form-control" asp-for="Password" />
+                                <span class="text-danger" asp-validation-for="Password"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="RePassword"></label>
+                                <input class="form-control" asp-for="RePassword" />
+                                <span class="text-danger" asp-validation-for="RePassword"></span>
+                            </div>
+
+                            <div class="d-grid ">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,15 @@
+﻿@model ShopViewModel
+
+
+<div class="card">
+    <a href="#">
+        <img src="~/images/shop/@Model.ImageUrl" class="card-img-top" />
+    </a>
+    <div class="card-body pb-0 d-flex flex-column justify-content-between" style="height:150px;">
+        <div>
+            <h4 class="card-title">@Model.Name</h4>
+            <h6 class="card-text">@Model.Address</h6>
+            <h6 class="card-text">@Model.PhoneNumber</h6>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+﻿@model UserUpdateViewModel
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-lg border-0 rounded-lg mt-3">
+            <div class="card-header">
+                <h3 class="font-weight-light mb-2">@Model.User.UserName adlı Kullanıcının Bilgileri</h3>
+            </div>
+            <div class="card-body">
+                <form 
+                    asp-area="Admin" 
+                    asp-controller="Home" 
+                    asp-action="UserEdit" 
+                    method="post" 
+                    >
+                    <input type="hidden" asp-for="User.Id" />
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-9">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-2 mb-md-0">
+                                        <input asp-for="User.UserName" class="form-control"
+                                               placeholder="Kitap adını giriniz.." />
+                                        <label asp-for="User.UserName"></label>
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="User.UserName"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-2 mb-md-0">
+                                        <input asp-for="User.FirstName" class="form-control" />
+                                        <label asp-for="User.FirstName"></label>
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="User.FirstName"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-2 mb-md-0">
+                                        <input asp-for="User.LastName" class="form-control" />
+                                        <label asp-for="User.LastName"></label>
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="User.LastName"></span>
+                                </div>
+ 
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <label class="form-label" asp-for="User.Address"></label>
+                                        <textarea class="form-control" asp-for="User.Address" id="ckeditor-text"></textarea>
+                                    </div>
+                                    <span class="text-danger" asp-validation-for="User.Address"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" asp-for="User.EmailConfirmed" type="checkbox">
+                                        <label class="form-check-label" asp-for="User.EmailConfirmed"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                <label class="form-label" asp-for="Roles"></label>
+                                @foreach (var role in Model.Roles)
+                                {
+                                    <div>
+                                        <input type="checkbox" class="form-check-input" value="@role.Name" name="SelectedRoles"
+                                        @(Model.SelectedRoles.Any(sc => sc == role.Name) ? "checked" : "") />
+                                        <label>@role.Name</label>
+                                    </div>
+                                }
+                                <span class="text-danger">@ViewBag.RoleErrorMessage</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mt-4 mb-0">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-block">Değişiklikleri Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center py-3">
+                <div class="small">
+                    <a asp-area="Admin" asp-controller="Home" asp-action="UserList">
+                        Tüm Kullanıcıları Listele
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Js{
+    @*@await Html.PartialAsync("_ValidationScriptsPartial");*@
+    @await Html.PartialAsync("_CkEditorPartialJs")
+    <script>
+        $("#ImageFile").on("change", function (event) {
+            const selectedFiles = event.target.files;
+            $("#image-viewer").attr("src", window.URL.createObjectURL(selectedFiles[0]));
+        });
+    </script>
+}
+
+@section Css{
+    <script src="//cdn.ckeditor.com/4.21.0/full/ckeditor.js"></script>
+}

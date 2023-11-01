@@ -1,0 +1,47 @@
+﻿@model ShopViewModel
+
+<!-- SİLME TETİKLEYİCİ BUTONU -->
+<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modal-@Model.Id">
+    <i class="fa-regular fa-trash-can"></i>
+</button>
+
+<!-- MODAL Dükkan SİLME EKRANI -->
+<div class="modal fade" id="modal-@Model.Id" tabindex="-1" aria-labelledby="modal-label-@Model.Id" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-label-@Model.Id">Dükkan Sil</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <table class="table table-bordered table-hover" id="data-table">
+                        <thead>
+                            <tr>
+                                <th>Id:</th>
+                                <th>Ad:</th>
+                                <th>Oluşturulma Tarihi:</th>
+                                <th>Son Değişiklik Tarihi:</th>
+                                <th>Aktif mi?:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.Id</td>
+                                <td>@Model.Name</td>
+                                <td>@Model.CreatedDate</td>
+                                <td>@Model.ModifiedDate</td>
+                                <td class="@(Model.IsActive ? "text-success" : "text-danger") fw-bold ">@(Model.IsActive ? "AKTİF" : "PASİF")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Vazgeç</button>
+                <a type="button" class="btn btn-danger" asp-area="Admin" asp-controller="Shop" asp-action="SoftDelete" asp-route-id="@Model.Id">Sil</a>
+            </div>
+        </div>
+    </div>
+</div>
+

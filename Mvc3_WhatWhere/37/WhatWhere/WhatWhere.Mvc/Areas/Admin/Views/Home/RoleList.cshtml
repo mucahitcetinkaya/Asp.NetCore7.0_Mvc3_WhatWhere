@@ -1,0 +1,33 @@
+﻿@using WhatWhere.Entity.Concrete
+@model List<Role>
+<h1 class="display-6 mt-3">Roller</h1>
+<hr />
+<div class="row">
+    <table class="table table-responsive-sm table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Rol Adı</th>
+                <th>Açıklama</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td>@role.Name</td>
+                    <td>@role.Description</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm"
+                            asp-area="Admin"
+                            asp-controller="Home"
+                            asp-action="RoleEdit"
+                            asp-route-id="@role.Id"
+                        >Düzenle</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

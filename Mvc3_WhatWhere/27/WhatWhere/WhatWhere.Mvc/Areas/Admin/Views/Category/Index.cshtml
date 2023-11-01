@@ -1,0 +1,91 @@
+﻿@model List<CategoryViewModel>
+<div class="row my-2">
+    <div class="col-md-6">
+        <h1 class="display-6">Kategoriler</h1>
+    </div>
+    <div class="col-md-6 d-flex align-items-center justify-content-end">
+        <a asp-area="Admin"
+           asp-controller="Category"
+           asp-action="Create"
+           class="btn btn-primary">Yeni Kategori</a>
+    </div>
+</div>
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <table class="table table-bordered" id="data-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Ad</th>
+                    <th>Açıklama</th>
+                    <th>Oluşturulma Tarihi</th>
+                    <th>Son Değiştirilme Tarihi</th>
+                    <th>Aktif mi?</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td>@category.Id</td>
+                        <td>@category.Name</td>
+                        <td>@category.Description</td>
+                        <td>@category.CreatedDate.ToShortDateString()</td>
+                        <td>@category.ModifiedDate.ToShortDateString()</td>
+                        <td>
+                            <form class="form-check"
+                                  asp-area="Admin"
+                                  asp-controller="Category"
+                                  asp-action="UpdateIsActive"
+                                  asp-route-id="@category.Id"
+                                  id="form-category-is-active-@category.Id">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           role="switch"
+                                           id="flexSwitchCheckChecked" @(category.IsActive ? "checked" : "")
+                                           onchange="document.getElementById(`form-category-is-active-@category.Id`).submit();">
+                                </div>
+
+                            </form>
+                        </td>
+                        <td>
+                            <!-- KALICI OLARAK SİLME BUTONU -->
+                            <a class="btn btn-danger btn-sm"
+                               asp-area="Admin"
+                               asp-controller="Category"
+                               asp-action="Delete"
+                               asp-route-id="@category.Id">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+
+                            <!-- SOFT SİLME BUTONU -->
+                        @await Html.PartialAsync("_CategoryDeletePartial",category)
+
+                            <!-- GÜNCELLEME BUTONU -->
+                            <a class="btn btn-info btn-sm"
+                               asp-area="Admin"
+                               asp-controller="Category"
+                               asp-action="Edit"
+                               asp-route-id="@category.Id">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Css{
+    @await Html.PartialAsync("_DataTablesStylesPartial")
+}
+
+@section Js{
+    @await Html.PartialAsync("_DataTablesScriptsPartial")
+}

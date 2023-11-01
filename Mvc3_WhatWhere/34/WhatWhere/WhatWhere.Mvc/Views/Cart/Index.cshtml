@@ -1,0 +1,133 @@
+﻿@model CartViewModel
+<body class="bg-light d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card mb-2">
+                <div class="card-header">
+                    <h2 class="text-center">Alışveriş Sepeti</h2>
+                </div>
+                <div class="card-body">
+                    @if (Model.CartItems.Count == 0)
+                    {
+                        <div class="alert alert-warning">
+                            Sepetinizde ürün bulunmamaktadır.
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6 class="text-success display-6 fw-normal fs-4">Sepetteki Uyelikler</h6>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <a class="btn btn-danger btn-sm"
+                                           asp-area=""
+                                           asp-controller="Cart"
+                                           asp-action="ClearCart"
+                                           asp-route-id="@Model.CartId">Sepeti Boşalt</a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr class="text-danger">
+                                            <th>Resim</th>
+                                            <th>Uyelik</th>
+                                            <th>Fiyat</th>
+                                            <th>Adet</th>
+                                            <th>Toplam</th>
+                                            <th>KDV</th>
+                                            <th>Sil</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.CartItems)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img src="~/images/salemember/@item.SaleMembershipImageUrl" width="50" />
+                                                </td>
+                                                <td>@item.SaleMembershipName</td>
+                                                <td>@($"{item.Price:C2}")</td>
+                                                <td>
+                                                    <form asp-area=""
+                                                          asp-controller="Cart"
+                                                          asp-action="ChangeQuantity"
+                                                          id="form-quantity_@item.SaleMembershipId"
+                                                          method="post">
+                                                        <input type="hidden" name="CartItemId" value="@item.CartItemId" />
+                                                        <input class="form-control d-inline"
+                                                               style="width:60px;"
+                                                               type="number"
+                                                               name="Quantity"
+                                                               min="1"
+                                                               max="9"
+                                                               value="@item.Quantity"
+                                                               onchange="document.getElementById('form-quantity_@item.SaleMembershipId').submit();" />
+                                                    </form>
+                                                </td>
+                                                @{
+                                                    decimal? total = item.Price * item.Quantity;
+                                                    decimal? totalKdv = total - (total / 1.08m);
+                                                }
+                                                <td>
+                                                    @($"{total:C2}")
+                                                </td>
+                                                <td>
+                                                    @($"{totalKdv:C2}")
+                                                </td>
+                                                <td>
+                                                    <a asp-area="" asp-controller="Cart" asp-action="DeleteItemFromCart" asp-route-id="@item.CartItemId"
+                                                       class="btn btn-sm btn-close">
+
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-primary fw-normal display-6 fs-4">Özet</h6>
+                                <hr>
+                                <table class="table table-sm">
+                                    @{
+                                        decimal? totalPrice = Model.TotalPrice();
+                                        decimal? kdv = totalPrice - (totalPrice / 1.08m);
+                                        decimal? totalCargo = totalPrice >= 250m ? 0 : 19.90m;
+                                        decimal? totalOfCart = totalPrice + totalCargo;
+                                    }
+                                    <tr>
+                                        <th>Toplam Tutar:</th>
+                                        <td class="text-end">@($"{totalPrice:C2}")</td>
+                                    </tr>
+                                    <tr>
+                                        <th>KDV Tutarı:</th>
+                                        <td class="text-end">@($"{kdv:C2}")</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kargo Bedeli:</th>
+                                        <td class="text-end">@($"{totalCargo:C2}")</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ödenecek Toplam Tutar:</th>
+                                        <td class="text-end text-danger fw-bold">@($"{totalOfCart:C2}")</td>
+                                    </tr>
+                                </table>
+                                <div>
+                                    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">Alışverişe Dön</a>
+                                    <a class="btn btn-success"
+                                       asp-area=""
+                                       asp-controller="Cart"
+                                       asp-action="Checkout">Ödemeye Geç</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,11 @@
+﻿@model List<City>
+
+
+
+<select class="form-select" id="citiesSelect">
+    <option selected>Şehirler</option>
+    @foreach (var city in Model)
+    {
+        <option value="@city.Id">@city.Sehir</option>
+    }
+</select>

@@ -1,0 +1,155 @@
+﻿@model CityTownCategoryShopViewModel
+
+
+<div class="container">
+
+    <div class="row mb-3">
+
+        <div class="col-md-4">
+            <div class="form-floating mb-2 mb-md-0">
+                <select asp-for="CityId" class="form-select" id="citiesSelect" name="SelectedCityId" asp-items="@Model.CitiesSelectList">
+                    <option value="">Şehir Seçiniz</option>
+                </select>
+                <label asp-for="CitiesSelectList"></label>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating mb-2 mb-md-0">
+                <select asp-for="TownId" class="form-select" id="townsSelect" name="SelectedTownId" asp-items="@Model.TownsSelectList">
+                    <option value="">İlçe Seçiniz</option>
+                </select>
+                <label asp-for="TownsSelectList"></label>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating mb-2 mb-md-0">
+                <select asp-for="CategoryId" class="form-select" id="categoriesSelect" name="SelectedCategoryId" asp-items="@Model.CategoriesSelectList">
+                    <option value="">Kategori Seçiniz</option>
+                </select>
+                <label asp-for="CategoriesSelectList"></label>
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+
+    <div class="row row-cols-1 row-cols-md-5" id="shopCardsContainer">
+        @foreach (var shop in Model.Shops)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="~/images/shop/@shop.ImageUrl" class="card-img-top" alt="...">
+                    <div class="card-body d-flex flex-column justify-content-between" style="height: 150px;">
+                        <h6 class="card-title">@shop.Name</h6>
+                        <h6 class="card-text">@shop.PhoneNumber</h6>
+                        <h6 class="card-text">@shop.Address</h6>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#citiesSelect").change(function () {
+                var cityId = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "/Options/GetTownsByCityId",
+                    data: { cityId: cityId },
+                    success: function (data) {
+                        var options = "<option value=''>İlçe Seçiniz</option>";
+                        $.each(data, function (index, item) {
+                            options += "<option value='" + item.value + "'>" + item.text + "</option>";
+                        });
+                        $("#townsSelect").html(options);
+                        
+                        // İlçe seçimi değiştiğinde kategorileri güncellemek için yeni bir ajax isteği gönderin
+                        updateCategories();
+                    }
+                });
+            });
+
+            $("#townsSelect").change(function () {
+                // İlçe değiştiğinde kategorileri güncellemek için yeni bir ajax isteği gönderin
+                updateCategories();
+            });
+
+            $("#categoriesSelect").change(function () {
+                // Kategori değiştiğinde shopları güncellemek için yeni bir ajax isteği gönderin
+                updateShops();
+            });
+
+            function updateCategories() {
+                var cityId = $("#citiesSelect").val();
+                var townId = $("#townsSelect").val();
+
+                // İlçe ve şehre ait kategorileri güncellemek için AJAX isteği gönderin
+                $.ajax({
+                    type: "GET",
+                    url: "/Options/GetCategoriesByCityId",
+                    data: { cityId: cityId },
+                    success: function (cityData) {
+                        $.ajax({
+                            type: "GET",
+                            url: "/Options/GetCategoriesByTownId",
+                            data: { townId: townId },
+                            success: function (townData) {
+                                var combinedData = cityData.concat(townData);
+                                var categoryOptions = "<option value=''>Kategori Seçiniz</option>";
+                                $.each(combinedData, function (index, item) {
+                                    categoryOptions += "<option value='" + item.value + "'>" + item.text + "</option>";
+                                });
+                                $("#categoriesSelect").html(categoryOptions);
+
+                                // Kategoriler güncellendikten sonra shopları güncellemek için yeni bir ajax isteği gönderin
+                                updateShops();
+                            }
+                        });
+                    }
+                });
+            }
+
+            function updateShops() {
+                var cityId = $("#citiesSelect").val();
+                var townId = $("#townsSelect").val();
+                var categoryId = $("#categoriesSelect").val();
+
+                // Shopları güncellemek için AJAX isteği gönderin
+                $.ajax({
+                    type: "GET",
+                    url: "/Options/GetFilteredShops",
+                    data: { cityId: cityId, townId: townId, categoryId: categoryId },
+                    success: function (data) {
+                        var shopCards = "";
+                        if (data.length > 0) {
+                            $.each(data, function (index, shop) {
+                                shopCards += `<div class="col mb-4">
+                                                <div class="card">
+                                                    <img src="~/images/shop/${shop.imageUrl}" class="card-img-top" alt="Shop Image">
+                                                    <div class="card-body">
+                                                        <h3 class="card-title">${shop.name}</h3>
+                                                        <p class="card-text">Address: ${shop.address}</p>
+                                                        <p class="card-text">Phone: ${shop.phoneNumber}</p>
+                                                    </div>
+                                                </div>
+                                            </div>`;
+                            });
+                        } else {
+                            shopCards = `<div class="col mb-4">
+                                            <p>Kayıtlı Dükkan Bulunmamaktadır.</p>
+                                         </div>`;
+                        }
+                        $("#shopCardsContainer").html(shopCards);
+                    }
+                });
+            }
+        });
+    </script>
+}

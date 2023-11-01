@@ -1,0 +1,72 @@
+﻿@model CityTownCategoryShopViewModel
+
+<div class="container bg-light">
+    <div class="row">
+        <div class="col-md-4 mt-4">
+            <div class="form-floating mb-2 mb-md-0">
+                <select asp-for="CityId" class="form-select" id="citiesSelect" name="SelectedCityId" asp-items="@Model.CitiesSelectList">
+                    <option value="">Şehir Seçiniz</option>
+                </select>
+                <label for="citiesSelect"></label>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row row-cols-1 row-cols-md-5" id="shopCardsContainer">
+        @foreach (var shop in Model.Shops)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="~/images/shop/@shop.ImageUrl" class="card-img-top" alt="...">
+                    <div class="card-body d-flex flex-column justify-content-between" style="height: 150px;">
+                        <h4 class="card-title">@shop.Name</h4>
+                        <h5 class="card-text">@shop.PhoneNumber</h5>
+                        <h5 class="card-text">@shop.Address</h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+        $("#citiesSelect").change(function () {
+            var cityId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Options/GetShopsByCityId",
+                data: { cityId: cityId },
+                success: function (data) {
+                    var shopCards = "";
+                    if (data.length > 0) {
+                        $.each(data, function (index, shop) {
+                            shopCards += `<div class="col mb-4">
+                                             <div class="card">
+                                                  <img src=/images/shop/kasap.jpg>
+                                                  <img src="/images/shop/${shop.ImageUrl}" class="card-img-top" alt="...">
+                                                      
+                                                 <div class="card-body d-flex flex-column justify-content-between" style="height: 150px;">
+                                                     <h4 class="card-title">${shop.name}</h4>
+                                                     <h5 class="card-text">${shop.PhoneNumber}</h5>
+                                                     <h5 class="card-text">${shop.Address}</h5>
+                                                 </div>
+                                             </div>
+                                         </div>`;
+                        });
+                    } else {
+                        shopCards = `<div class="col mb-4">
+                                                <p>Kayıtlı Dükkan Bulunmamaktadır.</p>
+                                             </div>`;
+                    }
+                    $("#shopCardsContainer").html(shopCards);
+                }
+            });
+        });
+
+    </script>
+}

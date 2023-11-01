@@ -1,0 +1,115 @@
+﻿@model OrderViewModel
+<body class="bg-light d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card mb-2">
+                <div class="card-header">
+                    <h2 class="text-center">Ödeme Sayfası</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-area=""
+                          asp-controller="Cart"
+                          asp-action="Checkout"
+                          method="post">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-1">
+                                    <h3 class="display-6 fs-3 fw-normal text-success">Kişisel Bilgiler</h3>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" asp-for="FirstName"></label>
+                                            <input class="form-control" asp-for="FirstName" />
+                                            <span class="text-danger" asp-validation-for="FirstName"></span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" asp-for="LastName"></label>
+                                            <input class="form-control" asp-for="LastName" />
+                                            <span class="text-danger" asp-validation-for="LastName"></span>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label" asp-for="Address"></label>
+                                            <textarea class="form-control" asp-for="Address"></textarea>
+                                            <span class="text-danger" asp-validation-for="Address"></span>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label" asp-for="City"></label>
+                                            <input class="form-control" asp-for="City" />
+                                            <span class="text-danger" asp-validation-for="City"></span>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label" asp-for="Email"></label>
+                                            <input class="form-control" asp-for="Email" />
+                                            <span class="text-danger" asp-validation-for="Email"></span>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label" asp-for="PhoneNumber"></label>
+                                            <input class="form-control" asp-for="PhoneNumber" />
+                                            <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div>
+                                    <h3 class="display-6 fs-3 fw-normal text-success">Kart Bilgileri</h3>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" asp-for="CardName"></label>
+                                            <input class="form-control" asp-for="CardName" />
+                                            <span class="text-danger" asp-validation-for="CardName"></span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" asp-for="CardNumber"></label>
+                                            <input class="form-control" asp-for="CardNumber" />
+                                            <span class="text-danger" asp-validation-for="CardNumber"></span>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label" asp-for="ExpirationYear"></label>
+                                            <input class="form-control" asp-for="ExpirationYear" />
+                                            <span class="text-danger" asp-validation-for="ExpirationYear"></span>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label" asp-for="ExpirationMonth"></label>
+                                            <input class="form-control" asp-for="ExpirationMonth" />
+                                            <span class="text-danger" asp-validation-for="ExpirationMonth"></span>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label" asp-for="Cvc"></label>
+                                            <input class="form-control" asp-for="Cvc" />
+                                            <span class="text-danger" asp-validation-for="Cvc"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h3 class="display-6 fs-3 fw-normal text-success">Ödeme Özeti</h3>
+                                <ul class="list-group">
+                                    @foreach (var item in Model.Cart.CartItems)
+                                    {
+                                        <li class="list-group-item">
+                                            <div><h5>@item.SaleMembershipName</h5></div>
+                                            <span class="text-danger me-1">Adet:</span>@item.Quantity
+                                            <span class="text-danger me-1">Fiyat:</span>@($"{item.Price:C2}")
+                                            @{
+                                                decimal? total = item.Price * item.Quantity;
+                                            }
+                                            <span class="text-danger me-1">Toplam:</span>@($"{total:C2}")
+                                        </li>
+                                    }
+                                    <li class="list-group-item text-end">
+                                        <span class="text-danger me-1">Ödenecek Tutar:</span>
+                                        <div class="fw-bold fs-2">
+                                            @($"{Model.Cart.TotalPrice():C2}")
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="text-end mt-3">
+                                    <button type="submit" class="btn btn-success">Ödemeyi Yap</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

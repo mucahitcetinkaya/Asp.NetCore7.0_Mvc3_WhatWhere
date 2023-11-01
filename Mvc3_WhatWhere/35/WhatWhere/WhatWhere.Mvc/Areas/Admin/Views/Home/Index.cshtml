@@ -1,0 +1,128 @@
+﻿@model AdminDashboardViewModel
+<h1 class="display-6 mt-2 mb-4">Dashboard</h1>
+<div class="row">
+    <div class="col-xl-4 col-md-6">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body display-6">@($"{Model.TotalSalesAmount:C2}")</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="#">Tüm Satışları Gör</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6">
+        <div class="card bg-warning text-dark mb-4">
+            <div class="card-body display-6">@($"{Model.TotalSalesCount}")</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-dark stretched-link" href="#">Tüm Satışları Gör</a>
+                <div class="small text-dark"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-6">
+        <div class="card bg-success text-white mb-4">
+            <div class="card-body display-6">@($"{Model.TotalMemberSalesCount}")</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="#">Tüm Satışları Gör</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row my-2">
+    <div class="col-md-6">
+        <h1 class="display-6">
+            Yeni Siparişler
+        </h1>
+    </div>
+    <div class="col-md-6">
+        <h1 class="display-6">
+            Hazırlanmakta Olan Siparişler
+        </h1>
+    </div>
+</div>
+<div class=row>
+    <div class="col-md-6">
+        @if (Model.ReceivedOrders.Count > 0)
+        {
+            <div class="card mb-4">
+                <div class="card-body">
+                    <table id="data-table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th width="110">Ad Soyad</th>
+                                <th width="160">Sipariş Tarihi</th>
+                                <th>Sipariş Durumu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.ReceivedOrders)
+                            {
+                                <tr>
+                                    <td>@order.Id</td>
+                                    <td>@order.FirstName @order.LastName</td>
+                                    <td>@order.OrderDate</td>
+                                    <td>@order.OrderStatus</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                Satış bilgisi bulunamamıştır.
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        @if (Model.PreparingOrders.Count > 0)
+        {
+            <div class="card mb-4">
+                <div class="card-body">
+                    <table id="data-table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th width="110">Ad Soyad</th>
+                                <th width="160">Sipariş Tarihi</th>
+                                <th>Sipariş Durumu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model.PreparingOrders)
+                            {
+                                <tr>
+                                    <td>@order.Id</td>
+                                    <td>@order.FirstName @order.LastName</td>
+                                    <td>@order.OrderDate</td>
+                                    <td>@order.OrderStatus</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                Satış bilgisi bulunamamıştır.
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Css{
+    @await Html.PartialAsync("_DataTablesStylesPartial")
+}
+
+@section Js{
+    @await Html.PartialAsync("_DataTablesScriptsPartial")
+}

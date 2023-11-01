@@ -1,0 +1,133 @@
+﻿@model CategoryListViewModel
+<div class="row my-2">
+    <div class="col-md-6">
+        <h1 class="display-6">
+            @(Model.SourceAction == "Index" ? "Kategoriler" : "Silinmiş Kategoriler")
+        </h1>
+    </div>
+    @if (Model.SourceAction == "Index")
+    {
+        <div class="col-md-6 d-flex align-items-center justify-content-end">
+            <a asp-area="Admin"
+               asp-controller="Category"
+               asp-action="Create"
+               class="btn btn-primary">Yeni Kategori</a>
+        </div>
+    }
+</div>
+
+@if (Model.CategoryViewModels.Count > 0)
+{
+    <div class="card mb-4">
+        <div class="card-body">
+            <table class="table table-bordered table-hover" id="data-table">
+                <thead>
+                    <tr>
+                        <th width="5">Id</th>
+                        <th width="50">Ad</th>
+                        <th width="100">Açıklama</th>
+                        <th width="90">Oluşturulma Tarihi</th>
+                        <th width="110">Son Değiştirilme Tarihi</th>
+                        <th width="5">Aktif mi?</th>
+                        <th width="50">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model.CategoryViewModels)
+                    {
+                        <tr>
+                            <td>@category.Id</td>
+                            <td>@category.Name</td>
+                            <td>@category.Description</td>
+                            <td>@category.CreatedDate.ToShortDateString()</td>
+                            <td>@category.ModifiedDate.ToShortDateString()</td>
+                            <td>
+                                @if (Model.SourceAction == "Index")
+                                {
+                                    <form class="form-check"
+                                          asp-area="Admin"
+                                          asp-controller="Category"
+                                          asp-action="UpdateIsActive"
+                                          asp-route-id="@category.Id"
+                                          id="form-category-is-active-@category.Id">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   role="switch"
+                                                   id="flexSwitchCheckChecked" @(category.IsActive ? "checked" : "")
+                                                   onchange="document.getElementById(`form-category-is-active-@category.Id`).submit();">
+                                        </div>
+
+                                    </form>
+                                }
+                                else
+                                {
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               id="flexSwitchCheckChecked" @(category.IsActive ? "checked" : "")
+                                               disabled>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <!-- KALICI OLARAK SİLME BUTONU -->
+                                <a class="btn btn-danger btn-sm"
+                                   asp-area="Admin"
+                                   asp-controller="Category"
+                                   asp-action="Delete"
+                                   asp-route-id="@category.Id">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+
+                                <!-- GERİ ALMA BUTONU -->
+                                @if (Model.SourceAction == "DeletedIndex")
+                                {
+                                    <a class="btn btn-success btn-sm"
+                                       asp-area="Admin"
+                                       asp-controller="Category"
+                                       asp-action="SoftDelete"
+                                       asp-route-id="@category.Id">
+                                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                                    </a>
+                                }
+                                <!-- SOFT SİLME BUTONU -->
+                                @if (Model.SourceAction == "Index")
+                                {
+                                    @await Html.PartialAsync("_CategoryDeletePartial",category)
+                                }
+
+
+                                <!-- GÜNCELLEME BUTONU -->
+                                <a class="btn btn-info btn-sm @(Model.SourceAction=="DeletedIndex" ? "d-none" : "")"
+                                   asp-area="Admin"
+                                   asp-controller="Category"
+                                   asp-action="Edit"
+                                   asp-route-id="@category.Id">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+else
+{
+    <div class="alert alert-warning" role="alert">
+        Herhangi bir kategori bilgisi yoktur.
+    </div>
+}
+
+@section Css{
+    @await Html.PartialAsync("_DataTablesStylesPartial")
+}
+
+@section Js{
+    @await Html.PartialAsync("_DataTablesScriptsPartial")
+}

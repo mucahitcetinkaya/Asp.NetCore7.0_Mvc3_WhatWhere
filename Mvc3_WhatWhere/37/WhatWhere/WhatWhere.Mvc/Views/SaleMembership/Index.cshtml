@@ -1,0 +1,42 @@
+﻿@model List<SaleMembershipViewModel>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-6">
+        @foreach (var salemember in Model)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="~/images/salemember/@salemember.ImageUrl" class="card-img-top" />
+                    <div class="card-body pb-0 d-flex flex-column justify-content-between" style="height:140px;">
+                        <div>
+                            <h6 class="card-title">@salemember.Name</h6>
+                            <h6 class="card-text">@salemember.Description</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-danger btn-sm" style="cursor:default !important" ;>@($"{salemember.Price:C0}")</button>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white d-grid gap-2 mt-2">
+                        <form asp-area=""
+                              asp-controller="Cart"
+                              asp-action="AddToCart"
+                              asp-route-id="@salemember.Id"
+                              method="post">
+                            <input type="hidden" name="Quantity" value="1" />
+                            <input type="hidden" name="SaleMembershipId" value="@salemember.Id" />
+
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <button type="submit" class="btn btn-success btn-sm">Sepete Ekle</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-success btn-sm" asp-controller="Account" asp-action="Login">Giriş Yap</button>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div> 

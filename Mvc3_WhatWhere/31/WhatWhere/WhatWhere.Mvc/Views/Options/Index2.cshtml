@@ -1,0 +1,158 @@
+﻿@* @model CityTownCategoryShopViewModel
+
+
+
+<div class="container">
+
+    <div class="row mb-3">
+
+        <div class="col-md-4">
+            <div class="form-floating mb-2 mb-md-0">
+                <select asp-for="CityId" class="form-select" id="CategoryId" asp-items="@Model.CityList"></select>
+                <label asp-for="CityList"></label>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating mb-2 mb-md-0">
+                <select asp-for="TownId" class="form-select" id="TownId" asp-items="@Model.TownList"></select>
+                <label asp-for="TownList"></label>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating mb-2 mb-md-0">
+                <select asp-for="CategoryId" class="form-select" asp-items="@Model.CategoryList"></select>
+                <label asp-for="CategoryList"></label>
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+
+     @* <div class="row row-cols-1 row-cols-md-5" id="shopCardsContainer">
+        @foreach (var shop in Model.Shops)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="~/images/shop/@shop.ImageUrl" class="card-img-top" alt="...">
+                    <div class="card-body d-flex flex-column justify-content-between" style="height: 150px;">
+                        <h6 class="card-title">@shop.Name</h6>
+                        <h6 class="card-text">@shop.PhoneNumber</h6>
+                        <h6 class="card-text">@shop.Address</h6>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>  
+
+</div>
+*@
+
+
+@*
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#citiesSelect").change(function () {
+                var cityId = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetTowns",
+                    data: { cityId: cityId },
+                    success: function (data) {
+                        var options = "<option value=''>--Select Town--</option>";
+                        $.each(data, function (index, item) {
+                            options += "<option value='" + item.value + "'>" + item.text + "</option>";
+                        });
+                        $("#townsSelect").html(options);
+
+                        // Şehir değiştiğinde kategorileri güncellemek için yeni bir ajax isteği gönderin
+                        updateCategoriesAndShops();
+                    }
+                });
+            });
+
+            $("#townsSelect").change(function () {
+                // İlçe değiştiğinde kategorileri güncellemek için yeni bir ajax isteği gönderin
+                updateCategoriesAndShops();
+            });
+
+            $("#categoriesSelect").change(function () {
+                // Kategori değiştiğinde shopları güncellemek için yeni bir ajax isteği gönderin
+                updateShops();
+            });
+
+            function updateCategoriesAndShops() {
+                var cityId = $("#citiesSelect").val();
+                var townId = $("#townsSelect").val();
+
+                // Şehre ait kategorileri güncellemek için AJAX isteği gönderin
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetCategoriesByCity",
+                    data: { cityId: cityId },
+                    success: function (data) {
+                        var categoryOptions = "<option value=''>--Select Category--</option>";
+                        $.each(data, function (index, item) {
+                            categoryOptions += "<option value='" + item.value + "'>" + item.text + "</option>";
+                        });
+                        $("#categoriesSelect").html(categoryOptions);
+
+                        // Kategoriler güncellendikten sonra shopları güncellemek için yeni bir ajax isteği gönderin
+                        updateShops();
+                    }
+                });
+
+                // İlçeye ait kategorileri güncellemek için AJAX isteği gönderin
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetCategoriesByTown",
+                    data: { townId: townId },
+                    success: function (data) {
+                        var categoryOptions = "<option value=''>--Select Category--</option>";
+                        $.each(data, function (index, item) {
+                            categoryOptions += "<option value='" + item.value + "'>" + item.text + "</option>";
+                        });
+                        $("#categoriesSelect").html(categoryOptions);
+
+                        // Kategoriler güncellendikten sonra shopları güncellemek için yeni bir ajax isteği gönderin
+                        updateShops();
+                    }
+                });
+            }
+
+            function updateShops() {
+                var cityId = $("#citiesSelect").val();
+                var townId = $("#townsSelect").val();
+                var categoryId = $("#categoriesSelect").val();
+
+                // Shopları güncellemek için AJAX isteği gönderin
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/GetShops",
+                    data: { cityId: cityId, townId: townId, categoryId: categoryId },
+                    success: function (data) {
+                        var shopCards = "";
+                        $.each(data, function (index, shop) {
+                            shopCards += `<div class="col mb-4">
+                                                                                <div class="card">
+                                                                                    <img src="~/images/shop/${shop.imageUrl}" class="card-img-top" alt="Shop Image">
+                                                                                    <div class="card-body">
+                                                                                        <h3 class="card-title">${shop.name}</h3>
+                                                                                        <p class="card-text">Address: ${shop.address}</p>
+                                                                                        <p class="card-text">Phone: ${shop.phoneNumber}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>`;
+                        });
+                        $("#shopCardsContainer").html(shopCards);
+                    }
+                });
+            }
+        });
+    </script>
+} 
+
+*@

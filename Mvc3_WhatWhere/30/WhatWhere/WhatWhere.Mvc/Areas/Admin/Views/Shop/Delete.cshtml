@@ -1,0 +1,43 @@
+﻿@model ShopDeleteViewModel
+
+<h1 class="display-6 text-danger mt-3">Dükkan Siliniyor...!</h1>
+<hr />
+
+<div class="card mb-4">
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="data-table">
+            <thead>
+                <tr>
+                    <th>Id:</th>
+                    <th>Ad:</th>
+                    <th>Adres</th>
+                    <th>Açıklama:</th>
+                    <th>E-Mail:</th>
+                    <th>Site</th>
+                    <th>Aktif mi?:</th>
+                    <th>Silinmiş mi?:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Id</td>
+                    <td>@Model.Name</td>
+                    <td>@Model.Address</td>
+                    <td>@Model.Description</td>
+                    <td>@Model.MailAdress</td>
+                    <td>@Model.Url</td>
+                    <td class="@(Model.IsActive ? "text-success" : "text-danger") fw-bold ">@(Model.IsActive ? "AKTİF" : "PASİF")</td>
+                    <td class="@(!Model.IsDeleted ? "text-success" : "text-danger") fw-bold ">@(Model.IsDeleted ? "SİLİNMİŞ" : "SİLİNMEMİŞ")</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a class="btn btn-warning" asp-area="Admin" asp-controller="Shop" asp-action="Index">Vazgeç</a>
+
+<a class="btn btn-danger" asp-area="Admin" asp-controller="Shop" asp-action="HardDelete" asp-route-id="@Model.Id">Kalıcı Olarak Sil!</a>
+
+<div class="mt-2">
+    <label class="text-danger">* @Model.Name dükkanı, veri tabanından kalıcı olarak silinecektir!</label>
+</div>

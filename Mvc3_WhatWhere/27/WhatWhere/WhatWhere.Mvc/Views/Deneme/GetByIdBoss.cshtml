@@ -1,0 +1,125 @@
+﻿@model Boss
+
+
+<h1>@Model.FirstName @Model.LastName</h1>
+<p>Telefon: @Model.PhoneNumber</p>
+<p>E-posta: @Model.MailAdress</p>
+<p>Cinsiyet: @Model.Gender</p>
+<p>Doğum Yılı: @Model.BirthOfYear</p>
+<p>İnternet Sitesi: @Model.Url</p>
+
+
+@*
+@model List<ShopViewModel>
+
+@{
+    ViewData["Title"] = "BooksApp Ana Sayfa";
+}
+
+<div class="row">
+    <div class="col-2">
+        @await Component.InvokeAsync("Categories")
+        @await Component.InvokeAsync("Authors")
+        @await Component.InvokeAsync("Publishers")
+    </div>
+    <div class="col-10">
+        <div class="row g-3">
+            @foreach (var shopViewModel in Model)
+            {
+                <div class="col-2">
+                    @await Html.PartialAsync("_ShopPartial",shopViewModel)
+                </div>
+            }
+        </div>
+    </div>
+</div>
+*@
+
+
+
+
+
+
+@*
+@model List<BookViewModel>
+@{
+    ViewData["Title"] = "BooksApp Ana Sayfa";
+}
+<div class="row">
+
+    <div class="col-10">
+        <div class="row g-3">
+            @foreach (var bookViewModel in Model)
+            {
+                <div class="col-2">
+                    @await Html.PartialAsync("_BookPartial",bookViewModel)
+                    @model BookViewModel
+                    <div class="card">
+                        <a href="#">
+                            <img src="~/images/books/@Model.ImageUrl" class="card-img-top" />
+                        </a>
+                        <div class="card-body pb-0 d-flex flex-column justify-content-between" style="height:140px;">
+                            <div>
+                                <h4 class="card-title">@Model.Name</h4>
+                                <h5 class="card-text">@Model.AuthorName</h5>
+                                <h6 class="card-text">@Model.PublisherName</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button href="#" class="btn btn-info btn-sm">İncele</button>
+                                <button class="btn btn-danger btn-sm" style="cursor:default !important" ;>@($"{Model.Price:C0}")</button>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white d-grid gap-2 mt-2">
+
+                            <button href="#" class="btn btn-success btn-sm">Sepete Ekle</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-2">
+
+        @await Component.InvokeAsync("Categories")
+
+        @model CategoryListViewModel
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action @(Model.SelectedCategoryUrl=="" ? "active" : "")"
+               asp-area=""
+               asp-controller="BooksShop"
+               asp-action="BookList"
+               asp-route-categoryurl=""
+               asp-route-authorurl="">Tüm Kitaplar</a>
+            @foreach (var categoryViewModel in Model.CategoryViewModelList)
+            {
+                <a class="list-group-item list-group-item-action @(Model.SelectedCategoryUrl==categoryViewModel.Url ? "active" : "")"
+                   asp-area=""
+                   asp-controller="BooksShop"
+                   asp-action="BookList"
+                   asp-route-categoryurl="@categoryViewModel.Url"
+                   asp-route-authorurl="">@categoryViewModel.Name</a>
+            }
+        </div>
+
+        @await Component.InvokeAsync("Authors")
+
+        @model List<AuthorViewModel>
+        <div class="list-group mt-4">
+            <a class="list-group-item list-group-item-action"
+               asp-area=""
+               asp-controller="BooksShop"
+               asp-action="BookList"
+               asp-route-authorurl=""
+               asp-route-categoryurl="">Tüm Yazarlar</a>
+            @foreach (var authorViewModel in Model)
+            {
+                <a class="list-group-item list-group-item-action"
+                   asp-area=""
+                   asp-controller="BooksShop"
+                   asp-action="BookList"
+                   asp-route-authorurl="@authorViewModel.Url">@authorViewModel.Name</a>
+            }
+        </div>
+    </div>
+</div>
+*@

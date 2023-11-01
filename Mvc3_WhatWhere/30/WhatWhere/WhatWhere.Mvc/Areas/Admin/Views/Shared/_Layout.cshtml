@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>WhatWhere Dashboard - SB Admin</title>
+    <link href="~/admin/css/styles.css" rel="stylesheet" />
+    <script src="~/fontawesome/js/all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    @await RenderSectionAsync("Css",false)
+</head>
+
+
+<body class="sb-nav-fixed">
+
+    @await Html.PartialAsync("_TopMenuPartial")
+
+    <div id="layoutSidenav">
+
+        @await Html.PartialAsync("_LeftMenuPartial")
+
+        <div id="layoutSidenav_content">
+
+            <main>
+                <div class="container-fluid px-4">
+                    @RenderBody()
+                </div>
+            </main>
+
+            @await Html.PartialAsync("_FooterPartial")
+
+        </div>
+
+    </div>
+
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admin/js/scripts.js"></script>
+    <script src="~/jquery/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="~/admin/js/datatables-simple-demo.js"></script>
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Js", false)
+
+</body>
+</html>

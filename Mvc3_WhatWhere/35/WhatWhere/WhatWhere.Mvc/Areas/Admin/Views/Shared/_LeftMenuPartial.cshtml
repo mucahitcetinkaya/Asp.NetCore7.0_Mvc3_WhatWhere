@@ -1,0 +1,67 @@
+﻿<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" target="_blank">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Uygulamaya Git
+                </a>
+                <div class="sb-sidenav-menu-heading">Genel</div>
+                <a asp-area="Admin"
+                   asp-controller="Category"
+                   asp-action="Index"
+                   class="nav-link">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Kategoriler
+                </a>
+                <a asp-area="Admin"
+                   asp-controller="Shop"
+                   asp-action="Index"
+                   class="nav-link">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dükkanlar
+                </a>
+                <a class="nav-link" href="index.html">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Satışlar
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Geri Dönüşüm Kutusu</div>
+                <a asp-area="Admin" asp-controller="Category" asp-action="DeletedIndex" class="nav-link">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Silinmiş Kategoriler
+                </a>
+                <a asp-area="Admin" asp-controller="Shop" asp-action="DeletedIndex" class="nav-link">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Silinmiş Dükkanlar
+                </a>
+
+
+
+                <div class="sb-sidenav-menu-heading">Ayarlar</div>
+                <a class="nav-link"
+                   asp-area="Admin"
+                   asp-controller="Home"
+                   asp-action="UserList">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    Kullanıcılar
+                </a>
+                <a class="nav-link"
+                   asp-area="Admin"
+                   asp-controller="Home"
+                   asp-action="RoleList">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    Roller
+                </a>
+                <a class="nav-link" href="tables.html">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    Uygulama Ayarları
+                </a>
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Giriş Yapan Kullanıcı:</div>
+            Mücahit Çetinkaya
+        </div>
+    </nav>
+</div>

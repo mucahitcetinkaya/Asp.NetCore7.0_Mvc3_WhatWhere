@@ -1,0 +1,54 @@
+﻿@model CategoryViewModel
+
+<!-- SİLME TETİKLEYİCİ BUTONU -->
+<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modal-@Model.Id">
+    <i class="fa-regular fa-trash-can"></i>
+</button>
+
+<!-- MODAL KATEGORİ SİLME EKRANI -->
+<div class="modal fade" id="modal-@Model.Id" tabindex="-1" aria-labelledby="modal-label-@Model.Id" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-label-@Model.Id">Kategori Sil</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th>Id:</th>
+                        <td>@Model.Id</td>
+                        <th>Ad:</th>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Açıklama:</th>
+                        <td>@Model.Description</td>
+                    </tr>
+                    <tr>
+                        <th>Oluşturulma Tarihi:</th>
+                        <td>@Model.CreatedDate</td>
+                        <th>Son Değişiklik Tarihi:</th>
+                        <td>@Model.ModifiedDate</td>
+                    </tr>
+                    <tr>
+                        <th>Aktif mi?:</th>
+                        <td class="@(Model.IsActive ? "text-success" : "text-danger") fw-bold ">@(Model.IsActive ? "AKTİF" : "PASİF")</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Vazgeç</button>
+                <a type="button"
+                   class="btn btn-danger"
+                   asp-area="Admin"
+                   asp-controller="Category"
+                   asp-action="SoftDelete"
+                   asp-route-id="@Model.Id">Sil</a>
+            </div>
+        </div>
+    </div>
+</div>

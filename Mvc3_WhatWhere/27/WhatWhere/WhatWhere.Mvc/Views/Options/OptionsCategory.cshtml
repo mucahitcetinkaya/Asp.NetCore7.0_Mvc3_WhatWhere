@@ -1,0 +1,9 @@
+﻿@model List<Category>
+
+<select class="form-select" id="categoriesSelect">
+    <option selected>Kategoriler</option>
+    @foreach (var category in Model)
+    {
+        <option value="@category.Id">@category.Name</option>
+    }
+</select>

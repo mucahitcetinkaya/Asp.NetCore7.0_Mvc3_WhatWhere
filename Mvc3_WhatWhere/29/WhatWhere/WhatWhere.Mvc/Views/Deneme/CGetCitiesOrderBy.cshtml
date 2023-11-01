@@ -1,0 +1,21 @@
+﻿@model List<City>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Sehir</th>
+    </tr>
+  </thead>
+
+  <tbody>
+        @foreach (var city in Model)
+        {
+        <tr>
+          <th>@city.Id</th>
+          <th>@city.Sehir</th>
+        </tr>
+        }
+  </tbody>
+</table>
+

@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Cascading Drop Down List";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+<div class="container">
+    <div class="card border-primary">
+        <div class="card-header fw-bold border-primary">
+            Cascading DLL
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1">
+                <form>
+                    <div class="mb-2">
+                        <label>City</label>
+                        <select id="city" class="form-control"></select>
+                    </div>
+                    <div class="mb-2">
+                        <label>Town</label>
+                        <select id="town" class="form-control"></select>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#city').attr('disabled', true);
+        $('#town').attr('disabled', true);
+        LoadCities();
+    });
+
+    function LoadCities() {
+        $('#city').empty();
+        
+        $.ajax({
+            url: '/Options/GetCitiesOrderBy',
+            success: function(response) {
+                if(response != null && response != undefined && response.lenght > 0)
+                {
+                    $('#city').attr('disabled', false);
+                    $('#city').append('<option>--Select City--</option>');
+                    $('#town').append('<option>--Select Town--</option>');
+                    $.each(response, function (i, data) {
+                        $('#city').append('<option value=' + data.id + '>' + data.sehir + '</option>')
+                    });
+                }
+                else {
+                    $('#city').attr('disabled', true);
+                    $('#town').attr('disabled', true);
+                    $('#city').append('<option>--Cities not available--</option>');
+                    $('#town').append('<option>--Towns not available--</option>');
+                }
+            },
+            error: function (error){
+                alert(error);
+            }
+        });
+    }
+
+</script>
+
+
+
+
+@*
+
+@{
+    ViewData["Title"] = "Cascading Drop Down List";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+
+<form>
+
+    <div class="container">
+        <div class="container text-center">
+            <div class="row">
+
+                <div class="col">
+                    <select class="form-select" id="SelectCity">city</select>
+                </div>
+
+                <div class="col">
+                    <select class="form-select" id="SelectTown">town</select>
+                </div>
+
+                <div class="col">
+                    <select class="form-select" id="SelectCategory">category</select>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col" id="shopsContainer">shop</div>
+
+        </div>
+    </div>
+
+</form>
+
+
+
+
+*@

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Views\Shared\Components\**" />
+    <Content Remove="Areas\Admin\Views\Shared\Components\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\Shared\Components\**" />
+    <None Remove="Areas\Admin\Views\Shared\Components\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WhatWhere.Business\WhatWhere.Business.csproj" />
+    <ProjectReference Include="..\WhatWhere.Core\WhatWhere.Core.csproj" />
+  </ItemGroup>
+
+</Project>

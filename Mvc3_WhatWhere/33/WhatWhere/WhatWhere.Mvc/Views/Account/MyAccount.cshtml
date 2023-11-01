@@ -1,0 +1,103 @@
+﻿@model UserAccountViewModel
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-lg border-0 rounded-lg mt-3">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="font-weight-light mb-2">Hesabım</h3>
+                    </div>
+                    <div class="col text-end">
+                        <span>
+                            <a asp-area="" asp-controller="Home" asp-action="Index"
+                               class="btn btn-link">Vazgeç</a>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <form asp-area="" asp-controller="Account" asp-action="MyAccount" method="post">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                            <div class="mb-2 mb-md-0">
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" class="form-control"/>
+                            </div>
+                            <span class="text-danger" asp-validation-for="FirstName"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-2 mb-md-0">
+                                <label asp-for="LastName"></label>
+                                <input asp-for="LastName" class="form-control" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="LastName"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label asp-for="DateOfBirth"></label>
+                                <input type="date" class="form-select" asp-for="DateOfBirth" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="DateOfBirth"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <label asp-for="Gender"></label>
+                                <select class="form-select" asp-items="@Model.GenderSelectList" asp-for="Gender">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2 mb-md-0">
+                                <label asp-for="UserName"></label>
+                                <input asp-for="UserName" class="form-control" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="UserName"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2 mb-md-0">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2 mb-md-0">
+                                <label asp-for="PhoneNumber"></label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="">
+                                <label class="form-label" asp-for="Address"></label>
+                                <textarea class="form-control fs-1" asp-for="Address"></textarea>
+                                <span class="text-danger" asp-validation-for="Address"></span>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Address"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2 mb-md-0">
+                                <label asp-for="City"></label>
+                                <input asp-for="City" class="form-control" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="City"></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 mb-0">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-block">Değişiklikleri Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial");
+}

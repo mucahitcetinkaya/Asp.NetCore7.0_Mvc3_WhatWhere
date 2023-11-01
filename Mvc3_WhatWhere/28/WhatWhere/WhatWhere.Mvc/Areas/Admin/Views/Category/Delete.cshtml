@@ -1,0 +1,42 @@
+﻿@model CategoryDeleteViewModel
+<h1 class="display-6 text-danger mt-3">Kategori Siliniyor...!</h1>
+<hr />
+<table class="table w-50 table-bordered">
+    <tr>
+        <th>Id:</th>
+        <td>@Model.Id</td>
+        <th>Ad:</th>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <th>Açıklama:</th>
+        <td>@Model.Description</td>
+        <th>ImageUrl:</th>
+        <td>@Model.ImageUrl</td>
+    </tr>
+    <tr>
+        <th>Aktif mi?:</th>
+        <td class="@(Model.IsActive ? "text-success" : "text-danger") fw-bold ">@(Model.IsActive ? "AKTİF" : "PASİF")</td>
+        <th>Silinmiş mi?:</th>
+        <td class="@(!Model.IsDeleted ? "text-success" : "text-danger") fw-bold ">@(Model.IsDeleted ? "SİLİNMİŞ" : "SİLİNMEMİŞ")</td>
+    </tr>
+    <tr>
+        <th>Oluşturulma Tarihi:</th>
+        <td>@Model.CreatedDate</td>
+        <th>Son Değişiklik Tarihi:</th>
+        <td>@Model.ModifiedDate</td>
+    </tr>
+</table>
+<a class="btn btn-warning"
+   asp-area="Admin"
+   asp-controller="Category"
+   asp-action="Index">Vazgeç</a>
+
+<a class="btn btn-danger"
+   asp-area="Admin"
+   asp-controller="Category"
+   asp-action="HardDelete"
+   asp-route-id="@Model.Id">Kalıcı Olarak Sil!</a>
+<div class="mt-2">
+    <label class="text-danger">* @Model.Name kategorisi, veri tabanından kalıcı olarak silinecektir!</label>
+</div>

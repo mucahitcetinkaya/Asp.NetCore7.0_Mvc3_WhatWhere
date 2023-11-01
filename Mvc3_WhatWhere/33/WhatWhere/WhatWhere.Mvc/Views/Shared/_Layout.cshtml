@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] WhatWhere</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WhatWhere.MVC.styles.css" asp-append-version="true" />
+</head>
+
+<style>
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  flex: 1;
+  padding: 0;
+}
+
+</style>
+
+<body>
+    <header>
+        <!-- Intro settings -->
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container-fluid">
+                <button class="navbar-toggler"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarExample01"
+                        aria-controls="navbarExample01"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarExample01">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <a class="navbar-brand" asp-area="" asp-controller="Options" asp-action="Index">
+                            <img src="/images/nenerede.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                            NeNerede?
+                        </a>
+                    </ul>
+                    <br />
+                    <br />
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        @await Html.PartialAsync("_NavbarLinkPartial")
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar -->
+       
+    </header>
+
+    <div class="container mt-2">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    
+        @await Html.PartialAsync("_FooterPartial")
+    
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

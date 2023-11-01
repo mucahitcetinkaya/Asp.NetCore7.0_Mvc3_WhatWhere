@@ -1,0 +1,44 @@
+﻿@model List<ShopViewModel>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Açıklaması</th>
+            <th scope="col">Adres</th>
+            <th scope="col">Numara</th>
+            <th scope="col">E-Mail</th>
+            <th scope="col">Site</th>
+            <th scope="col">BossId</th>
+            <th scope="col">KategoriId</th>
+            <th scope="col">ŞehirId</th>
+            <th scope="col">Sehir Adı</th>
+            <th scope="col">IlçeId</th>
+            <th scope="col">Ilce Adı</th>
+            <th scope="col">Aktif Mi ?</th>
+        </tr>
+    </thead>
+
+    @foreach (var shop in Model)
+    {
+        <tbody>
+            <tr>
+                <th>@shop.Id</th>
+                <th>@shop.Name</th>
+                <th>@shop.Description</th>
+                <th>@shop.Address</th>
+                <th>@shop.PhoneNumber</th>
+                <th>@shop.MailAdress</th>
+                <th>@shop.Url</th>
+                <th>@shop.BossId</th>
+                <th>@shop.CategoryId</th>
+                <th>@shop.CityId</th>
+                <th>@shop.City.Sehir</th>
+                <th>@shop.Town.Ilce</th>
+                <th>@shop.IsActive</th>
+            </tr>
+        </tbody>
+    }
+</table>

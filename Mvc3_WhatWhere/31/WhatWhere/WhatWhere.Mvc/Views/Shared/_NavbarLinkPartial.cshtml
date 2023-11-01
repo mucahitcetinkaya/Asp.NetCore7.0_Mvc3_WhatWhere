@@ -1,0 +1,76 @@
+﻿<ul class="navbar-nav">
+
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Tüm Dükkanlar</a>
+    </li>
+    
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Options" asp-action="Index">Seçenekler</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="ChoseHome" asp-action="Index">Seçenekler2</a>
+    </li>
+
+</ul>
+
+<ul class="navbar-nav text-end">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark"
+               asp-area="Admin"
+               asp-controller="Home"
+               asp-action="Index">Admin</a>
+        </li>
+    }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark"
+               asp-area=""
+               asp-controller="SaleMembership"
+               asp-action="Index"
+               asp-route-id="@User.Identity.Name">
+                @User.Identity.Name
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark"
+               asp-area=""
+               asp-controller="Account"
+               asp-action="MyAccount"
+               asp-route-id="@User.Identity.Name">
+                @User.Identity.Name
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark"
+               asp-area=""
+               asp-controller="Account"
+               asp-action="Logout">
+                Çıkış Yap
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark"
+               asp-area=""
+               asp-controller="Account"
+               asp-action="Login">
+                Giriş Yap
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark"
+               asp-area=""
+               asp-controller="Account"
+               asp-action="Register">
+                Kayıt Ol
+            </a>
+        </li>
+    }
+</ul>

@@ -1,0 +1,24 @@
+﻿@model List<SaleMembership>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-6">
+        @foreach (var salemember in Model)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="~/images/salemember/@salemember.ImageUrl" class="card-img-top" alt="...">
+                    <div class="card-body d-flex flex-column justify-content-between" style="height: 200px;">
+                        <h6 class="card-title">@salemember.Name</h6>
+                        <h6 class="card-text">@salemember.Description</h6>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-danger btn-sm" style="cursor: default !important;">@($"{salemember.Price}")</button>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white d-grid gap-2 mt-2">
+                        <button href="#" class="btn btn-success btn-sm">Sepete Ekle</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

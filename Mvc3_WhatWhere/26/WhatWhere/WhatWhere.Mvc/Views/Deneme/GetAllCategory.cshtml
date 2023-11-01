@@ -1,0 +1,20 @@
+﻿@model List<Category>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-6">
+        @foreach (var category in Model)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="~/images/category/@category.ImageUrl" class="card-img-top" alt="...">
+                    <div class="card-body d-flex flex-column justify-content-between" style="height: 100px;">
+                        <h6 class="card-title">@category.Name</h6>
+                    </div>
+                    <div class="card-footer bg-white d-grid gap-2 mt-2">
+                        <button href="#" class="btn btn-success btn-sm">Detaylar</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

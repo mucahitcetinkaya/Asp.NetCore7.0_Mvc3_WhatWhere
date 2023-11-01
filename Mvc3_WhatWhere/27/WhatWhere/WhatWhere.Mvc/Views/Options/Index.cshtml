@@ -1,0 +1,58 @@
+﻿@model OptionsViewModel
+
+<div class="container text-center">
+    <div class="row">
+
+
+        <div class="col">
+            <select class="form-select" aria-label="Default select example" id="citiesSelect">
+                <option selected>Şehirler</option>
+                @foreach (var city in Model.Cities)
+                {
+                    <option value="@city.Id">@city.Sehir</option>
+                }
+            </select>
+        </div>
+
+        <div class="col" id="townsContainer">
+            @await Html.PartialAsync("OptionsTown", Model.Towns)
+        </div>
+
+
+        <div class="col" id="categoriesContainer">
+            @await Html.PartialAsync("OptionsCategory", Model.Categories)
+        </div>
+
+
+
+    </div>
+    
+    <div class="row">
+        <div class="col" id="shopsContainer">
+            @await Html.PartialAsync("OptionsShop", Model.Shops)
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#citiesSelect').change(function () {
+            selectCity();
+        });
+    });
+
+    function selectCity() {
+        var cityId = document.getElementById("citiesSelect").value;
+        $.ajax({
+            url: '@Url.Action("GetTownsByCityId", "Options")',
+            type: 'GET',
+            data: { cityId: cityId },
+            success: function (data) {
+                $('#townsContainer').html(data);
+            },
+            error: function () {
+                alert("Hata oluştu, lütfen tekrar deneyin.");
+            }
+        });
+    }
+</script>

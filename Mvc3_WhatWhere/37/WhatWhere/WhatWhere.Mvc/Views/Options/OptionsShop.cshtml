@@ -1,0 +1,36 @@
+﻿@model List<Shop>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Kategorisi</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Sehir</th>
+            <th scope="col">Ilce</th>
+            <th scope="col">PhoneNumber</th>
+            <th scope="col">MailAdress</th>
+            <th scope="col">Site</th>
+            <th scope="col">OptionsShop.cshtml</th>
+        </tr>
+    </thead>
+
+    @foreach (var shop in Model)
+    {
+        <tbody>
+            <tr>
+                <th>@shop.Id</th>
+                <td>@shop.Name</td>
+                <td>@shop.Category.Name</td>
+                <td>@shop.Address</td>
+                <td>@shop.City.Sehir</td>
+                <td>@shop.Town.Ilce</td>
+                <td>@shop.PhoneNumber</td>
+                <td>@shop.MailAdress</td>
+                <td>@shop.Url</td>
+                <td>@shop.Url</td>
+            </tr>
+        </tbody>
+    }
+</table>

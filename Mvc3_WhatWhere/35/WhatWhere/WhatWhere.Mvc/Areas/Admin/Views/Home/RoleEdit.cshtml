@@ -1,0 +1,95 @@
+﻿@model RoleUpdateViewModel
+<form asp-area="Admin"
+      asp-controller="Home"
+      asp-action="RoleEdit"
+      id="formRoleUpdate"
+      method="post">
+    <input type="hidden" asp-for="@Model.Role.Id" />
+    <div class="row align-items-end justify-content-between mt-3">
+        <div class="col-md-9">
+            <h1 class="display-6">@Model.Role.Name rolü güncelleniyor...</h1>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox"  role="switch" asp-for="UpdateAll"
+                onchange="document.getElementById('formRoleUpdate').submit();"
+                >
+                <label class="form-check-label" for="UpdateAll">Toplu Güncelleme</label>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        @*NonMembers*@
+        <div class="col-md-6">
+            <h6 class="bg-success text-white p-3">
+                <span class="text-warning">@Model.Role.Name</span> Rolünde Olmayanlar
+            </h6>
+            <div class="text-danger" asp-validation-summary="All"></div>
+            @if (Model.NonMembers.Count == 0)
+            {
+                <div class="alert alert-warning">
+                    <p class="m-2">Zaten tüm üyeler @Model.Role.Name rolündeler.</p>
+                </div>
+            }
+            else
+            {
+                <table class="table table-sm table-bordered">
+                    @foreach (var user in Model.NonMembers)
+                    {
+                        <tr>
+                            <td>
+                                @if (Model.UpdateAll)
+                                {
+                                    <input id="nonmember_@user.Id" type="checkbox" class="form-check-input" name="IdsToAdd" value="@user.Id" />
+                                }
+                                else
+                                {
+                                    <input id="nonmember_@user.Id" type="checkbox" class="form-check-input" name="IdsToAdd" value="@user.Id" onchange="document.getElementById('formRoleUpdate').submit();" />
+                                    }
+                                    <label for="nonmember_@user.Id" class="form-check-label text-primary ">@user.UserName (@user.FirstName @user.LastName)</label>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+        @*Members*@
+        <div class="col-md-6">
+            <h6 class="bg-danger text-white p-3">
+                <span class="text-warning">@Model.Role.Name</span> Rolünde Olanlar
+            </h6>
+            @if (Model.Members.Count == 0)
+            {
+                <div class="alert alert-warning">
+                    <p class="m-2">@Model.Role.Name rolünde hiç üye yok.</p>
+                </div>
+            }
+            else
+            {
+                <table class="table table-sm table-bordered">
+                    @foreach (var user in Model.Members)
+                    {
+                        <tr>
+                            <td>
+                                @if (Model.UpdateAll)
+                                {
+                                    <input type="checkbox" class="form-check-input" name="IdsFromRemove" value="@user.Id" id="member_@user.Id" />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" class="form-check-input" name="IdsFromRemove" value="@user.Id" id="member_@user.Id" onchange="document.getElementById('formRoleUpdate').submit();" />
+                                }
+                                <label for="member_@user.Id" class="form-check-label text-primary ">@user.UserName (@user.FirstName @user.LastName)</label>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+        <div class="col-md-12 d-grid">
+            <button type="submit" class="btn btn-primary">Değişiklikleri Kaydet</button>
+        </div>
+    </div>
+</form>
